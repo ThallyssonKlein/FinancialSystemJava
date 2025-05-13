@@ -1,7 +1,7 @@
 package dev.thallyssonklein.financial_system.domain.bank.service;
 
 import dev.thallyssonklein.financial_system.domain.bank.entity.Transaction;
-import dev.thallyssonklein.financial_system.adapter.outbound.RedisAdapter;
+import dev.thallyssonklein.financial_system.adapter.outbound.OutboundKeyValueDatabaseAdapter;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,10 +12,10 @@ import java.util.List;
 public class ProcessFilesService {
 
     @Autowired
-    private RedisAdapter creditCardAdapter;
+    private OutboundKeyValueDatabaseAdapter creditCardAdapter;
 
     @Autowired
-    private RedisAdapter extractAdapter;
+    private OutboundKeyValueDatabaseAdapter extractAdapter;
 
     public void processFiles(List<Transaction> transactions, String userId, String type) {
         // 0 - Ordenar os itens por data
