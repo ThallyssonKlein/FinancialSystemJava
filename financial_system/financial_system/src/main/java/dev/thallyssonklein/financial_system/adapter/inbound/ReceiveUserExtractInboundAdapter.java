@@ -3,6 +3,8 @@ package dev.thallyssonklein.financial_system.adapter.inbound;
 import dev.thallyssonklein.financial_system.domain.bank.entity.Transaction;
 import dev.thallyssonklein.financial_system.domain.bank.service.ProcessFilesService;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,13 +12,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class ReceiveUserExtractInboundAdapter {
 
-    private final ProcessFilesService processFilesService;
-
-    public ReceiveUserExtractInboundAdapter(ProcessFilesService processFilesService) {
-        this.processFilesService = processFilesService;
-    }
+    @Autowired
+    private ProcessFilesService processFilesService;
 
     public void processFiles(String userId, MultipartFile extractFile, MultipartFile creditCardFile)
             throws IOException {

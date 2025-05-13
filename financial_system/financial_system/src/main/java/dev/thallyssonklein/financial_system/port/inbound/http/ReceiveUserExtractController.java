@@ -3,17 +3,18 @@ package dev.thallyssonklein.financial_system.port.inbound.http;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import dev.thallyssonklein.financial_system.adapter.inbound.ReceiveUserExtractInboundAdapter;
+
 import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
 @RequestMapping("/api/v1/users")
 public class ReceiveUserExtractController {
 
-    private final FileService fileService;
-
-    public ReceiveUserExtractController(FileService fileService) {
-        this.fileService = fileService;
-    }
+    @Autowired
+    private ReceiveUserExtractInboundAdapter receiveUserExtractInboundAdapter;
 
     @PostMapping("/{userId}/files")
     public ResponseEntity<?> processFiles(
@@ -34,7 +35,7 @@ public class ReceiveUserExtractController {
         }
 
         try {
-            fileService.processFiles(userId, extractFile, creditCardFile);
+            receiveUserExtractInboundAdapter.processFiles(userId, extractFile, creditCardFile);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity

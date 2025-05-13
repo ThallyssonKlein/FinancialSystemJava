@@ -3,6 +3,7 @@ package dev.thallyssonklein.financial_system.domain.bank.service;
 import dev.thallyssonklein.financial_system.domain.bank.entity.Transaction;
 import dev.thallyssonklein.financial_system.adapter.outbound.RedisAdapter;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Comparator;
 import java.util.List;
@@ -10,13 +11,11 @@ import java.util.List;
 @Service
 public class ProcessFilesService {
 
-    private final RedisAdapter creditCardAdapter;
-    private final RedisAdapter extractAdapter;
+    @Autowired
+    private RedisAdapter creditCardAdapter;
 
-    public ProcessFilesService(RedisAdapter creditCardAdapter, RedisAdapter extractAdapter) {
-        this.creditCardAdapter = creditCardAdapter;
-        this.extractAdapter = extractAdapter;
-    }
+    @Autowired
+    private RedisAdapter extractAdapter;
 
     public void processFiles(List<Transaction> transactions, String userId, String type) {
         // 0 - Ordenar os itens por data
